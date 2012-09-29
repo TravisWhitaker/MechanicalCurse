@@ -27,27 +27,21 @@ int main(int argc,char *argv[])
 
 	makeABabby();
 
-	move(2,2);
-	populateTextWin();
-	wrefresh(text_win);
-
-
 	move(text_win_row+4,2);
 	getyx(stdscr,y,x);
+	r = 0;
+	wr = 0;
+	wrong = 0;
+	buffClear(user_buff,256);
+
+	underPrint(text_win,"POOP",1);
+
+	wrefresh(text_win);
 	refresh();
-	while(1)
-	{
-		ch = getch();
-		if(ch == 'q')
-		{
-			break;
-		}
-		else
-		{
-			wprintw(user_win,"%c",ch);
-		}
-		wrefresh(user_win);
-	}
+
+	char poop = getch();
+
+
 	deinitialize();
 
 	return 0;

@@ -95,26 +95,107 @@ char *constructTextArray(char *filename)
 	return wordArray;
 }
 
-void populateTextWin()
+void populateTextWin(int underLines, int highLines)
+{
+	if(underLines != 0)
+	{
+		underPrint(text_win,textArray,underLines);
+	}
+	else if(highLines != 0)
+	{
+		highPrint(text_win,textArray,highLines);
+	}
+	else
+	{
+		wprintw(text_win,"%s",textArray);
+	}
+	wrefresh(text_win);
+	refresh();
+	return;
+}
+
+void buffClear(char buffer[],int buffsize)
+{
+	for(int i=0;i>buffsize;i++)
+	{
+		buffer[i] = '\0';
+	}
+	return;
+}
+
+void underPrint(WINDOW *window, char buffer[], int underChars)
+{
+	int i = 0;
+	char j;
+	while(1)
+	{
+		j = buffer[i];
+		if(j == '\0')
+		{
+			return;
+		}
+		else if(j != '~')
+		{
+			if(i < underChars)
+			{
+				wattron(window,A_UNDERLINE);
+				wprintw(window,"%c",j);
+				wattroff(window,A_UNDERLINE);
+			}
+			else
+			{
+				wprintw(window,"%c",j);
+			}
+		}
+		i++;
+	}
+}
+
+void highPrint(WINDOW *window, char buffer[], int highChars)
+{
+	int i = 0;
+	char j;
+	while(1)
+	{
+		j = buffer[i];
+		if(j == '\0')
+		{
+			return;
+		}
+		else if(j != '~')
+		{
+			if(i < highChars)
+			{
+				wattron(window,A_STANDOUT);
+				wprintw(window,"%c",i);
+				wattroff(window,A_STANDOUT);
+			}
+			else
+			{
+				wprintw(window,"%c",i);
+			}
+		}
+		i++;
+	}
+}
+
+int nextWordLength()
 {
 	int i=0;
 	char j;
 	while(1)
 	{
 		j = textArray[i];
-		if(j == '\0')
+		if(j == '~')
 		{
-			break;
+		asm("nop");
 		}
-		else if(j == '~')
+		else if(j == ' ')
 		{
-			asm("nop");
-		}
-		else
-		{
-			wprintw(text_win,"%c",j);
+			return i+1;
 		}
 		i++;
 	}
-	return;
+	return 0;
 }
+
