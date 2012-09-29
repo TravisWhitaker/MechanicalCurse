@@ -14,6 +14,8 @@ void initialize()
 	cbreak();
 	noecho();
 	keypad(stdscr,TRUE);
+	getmaxyx(stdscr,row,col);
+	refresh();
 }
 
 void deinitialize()
