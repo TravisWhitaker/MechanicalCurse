@@ -21,14 +21,12 @@ int main(int argc,char *argv[])
 		return 0;
 	}
 
-//	initialize();
+	initialize();
 	textArray = constructTextArray(argv[1]);
-//	printw("POOP");
-	printf("%s",textArray);
-//	refresh();
-//	int pingas = getch();
-//	deinitialize();
-	free(textArray);
+	printw("%s",textArray);
+	refresh();
+	int pingas = getch();
+	deinitialize();
 
 	return 0;
 

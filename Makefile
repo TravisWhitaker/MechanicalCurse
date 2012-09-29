@@ -1,4 +1,4 @@
-##	FermiShell Copyright (C) 2012 Travis Whitaker
+##	MechanicalCurse Copyright (C) 2012 Travis Whitaker
 
 CC=clang
 CFLAGS=-lncurses
