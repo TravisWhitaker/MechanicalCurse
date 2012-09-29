@@ -192,7 +192,7 @@ int nextWordLength()
 		}
 		else if(j == ' ')
 		{
-			return i+1;
+			return i;
 		}
 		i++;
 	}
