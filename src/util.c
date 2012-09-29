@@ -23,6 +23,29 @@ void deinitialize()
 	endwin();
 }
 
+void makeABabby()
+{
+	text_win_row = (row/2)-2;
+	text_win_col = (col-3);
+	user_win_row = 4;
+	user_win_col = (col-3);
+
+	text_win_border = newwin(text_win_row+2,text_win_col+2,1,1);
+	text_win = newwin(text_win_row,text_win_col,2,2);
+	box(text_win_border,0,0);
+	wrefresh(text_win_border);
+	wrefresh(text_win);
+
+	user_win_border = newwin(user_win_row+2,user_win_col+2,text_win_row+3,1);
+	user_win = newwin(user_win_row,user_win_col,text_win_row+4,2);
+	box(user_win_border,0,0);
+	wrefresh(user_win_border);
+	wrefresh(user_win);
+
+	refresh();
+	return;
+}
+
 char *constructTextArray(char *filename)
 {
 	FILE *wordfile;
@@ -70,4 +93,28 @@ char *constructTextArray(char *filename)
 	fclose(wordfile);
 
 	return wordArray;
+}
+
+void populateTextWin()
+{
+	int i=0;
+	char j;
+	while(1)
+	{
+		j = textArray[i];
+		if(j == '\0')
+		{
+			break;
+		}
+		else if(j == '~')
+		{
+			asm("nop");
+		}
+		else
+		{
+			wprintw(text_win,"%c",j);
+		}
+		i++;
+	}
+	return;
 }

@@ -25,22 +25,14 @@ int main(int argc,char *argv[])
 	getyx(stdscr,y,x);
 	textArray = constructTextArray(argv[1]);
 
-	text_win_border = newwin((row-7),(col-1),1,1);
-	text_win = newwin((row-9),(col-3),2,2);
-	box(text_win_border,0,0);
-	wrefresh(text_win_border);
-
-	user_win_border = newwin(6,(col-1),(row-6),1);
-	user_win = newwin(4,(col-3),(row-5),2);
-	box(user_win_border,0,0);
-	wrefresh(user_win_border);
+	makeABabby();
 
 	move(2,2);
-	wprintw(text_win,textArray);
+	populateTextWin();
 	wrefresh(text_win);
 
 
-	move(row-5,2);
+	move(text_win_row+4,2);
 	getyx(stdscr,y,x);
 	refresh();
 	while(1)
