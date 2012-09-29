@@ -1,15 +1,17 @@
-#	MechanicalCurse Copyright (C) 2012 Travis Whitaker
+##	FermiShell Copyright (C) 2012 Travis Whitaker
 
-CC = clang
-CFLAGS= -lncurses
-BIN= mcurse
-SOURCES= $(wildcard src/*.c)
-INCLUDE= -I./include
+CC=clang
+CFLAGS=-lncurses
+SOURCE= $(wildcard src/*.c)
+INCLUDE=-I./include
+OUT=-o
+EXECUTABLE=mcurse
 
-default: mcurse
+all:
+	$(CC) $(CFLAGS) $(INCLUDE) $(OUT) $(EXECUTABLE) $(SOURCE)
 
-mcurse:
-	$(CC) $(CFLAGS) $(INCLUDE) -o $(BIN) $(SOURCES)
+install:
+	cp $(EXECUTABLE) /usr/bin/
 
 clean:
-	rm $(BIN)
+	rm $(EXECUTABLE)

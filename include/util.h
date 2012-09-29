@@ -3,8 +3,10 @@
 #ifndef UTIL
 #define UTIL
 
-int poop;
+char *textArray;
 
 void initialize();
+void deinitialize();
+char *constructTextArray(char filename[]);
 
 #endif
