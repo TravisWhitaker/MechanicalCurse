@@ -36,6 +36,7 @@ int main(int argc,char *argv[])
 
 	while(1)
 	{
+		getyx(user_win,y,x);
 		werase(text_win);
 		if(wrong == 0)
 		{
@@ -60,12 +61,34 @@ int main(int argc,char *argv[])
 		{
 			break;
 		}
+		else if(ch == KEY_RIGHT)
+		{
+			getyx(user_win,y,x);
+			if(x < wr)
+			{
+				wmove(user_win,y,x+1);
+				wr++;
+				getyx(user_win,y,x);
+			}
+		}
+		else if(ch == KEY_LEFT)
+		{
+			getyx(user_win,y,x);
+			if(x > 1)
+			{
+				wmove(user_win,y,x-1);
+				wr--;
+				getyx(user_win,y,x);
+			}
+		}
 		else
 		{
 			user_buff[wr] = ch;
 			wr++;
+			getyx(user_win,y,x);
 			werase(user_win);
-			mvwprintw(user_win,0,0,"%s",user_buff);
+			wprintw(user_win,"%s",user_buff);
+			wmove(user_win,y,x+1);
 			getyx(user_win,y,x);
 			wrefresh(user_win);
 		}
