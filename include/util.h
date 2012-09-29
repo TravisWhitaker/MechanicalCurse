@@ -6,7 +6,8 @@
 char *textArray;
 int row,col;
 int x,y;
-WINDOW *text_win,*user_win;
+WINDOW *text_win,*text_win_border,*user_win,*user_win_border;
+int ch;
 
 void initialize();
 void deinitialize();
