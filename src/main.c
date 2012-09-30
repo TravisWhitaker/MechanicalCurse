@@ -38,17 +38,21 @@ int main(int argc,char *argv[])
 	{
 		getyx(user_win,y,x);
 		werase(text_win);
+		r = nextWordLength();
 		if(wrong == 0)
 		{
-			populateTextWin(nextWordLength(),0);
+			populateTextWin(r,0);
 		}
 		else if(wrong == 1)
 		{
-			populateTextWin(0,nextWordLength());
+			populateTextWin(0,r);
 		}
 		else
 		{
-			populateTextWin(0,0);
+			wmove(text_win,0,0);
+			werase(text_win);
+			wprintw(text_win,"ERROR: 'wrong' is equal to %d.",wrong);
+			wrefresh(text_win);
 		}
 		wmove(user_win,y,x);
 		wrefresh(user_win);
@@ -79,6 +83,51 @@ int main(int argc,char *argv[])
 				wmove(user_win,y,x-1);
 				wr--;
 				getyx(user_win,y,x);
+			}
+		}
+		else if(ch == KEY_BACKSPACE)
+		{
+			getyx(user_win,y,x);
+			if(x>0)
+			{
+				wmove(user_win,y,x-1);
+				wr--;
+				user_buff[wr] = '\0';
+				getyx(user_win,y,x);
+				werase(user_win);
+				wprintw(user_win,"%s",user_buff);
+				wmove(user_win,y,x);
+				getyx(user_win,y,x);
+				wrefresh(user_win);
+			}
+		}
+		else if(ch == ' ')
+		{
+			wrong = youAreWrong(user_buff,textArray,nextWordLength());
+			r = nextWordLength()+1;
+			if(wrong == 0)
+			{
+				buffClear(user_buff,256);
+				wr = 0;
+				werase(user_win);
+				wmove(user_win,0,0);
+				wrefresh(user_win);
+				getyx(user_win,y,x);
+				for(int c = 0;c<r;c++)
+				{
+					if(textArray[c] == '~')
+					{
+						r++;
+					}
+					else
+					{
+						textArray[c] = '~';
+					}
+				}
+			}
+			else
+			{
+				continue;
 			}
 		}
 		else

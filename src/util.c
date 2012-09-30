@@ -116,7 +116,7 @@ void populateTextWin(int underLines, int highLines)
 
 void buffClear(char buffer[],int buffsize)
 {
-	for(int i=0;i>buffsize;i++)
+	for(int i=0;i<buffsize;i++)
 	{
 		buffer[i] = '\0';
 	}
@@ -126,6 +126,7 @@ void buffClear(char buffer[],int buffsize)
 void underPrint(WINDOW *window, char buffer[], int underChars)
 {
 	int i = 0;
+	int k = 0;
 	char j;
 	while(1)
 	{
@@ -136,7 +137,7 @@ void underPrint(WINDOW *window, char buffer[], int underChars)
 		}
 		else if(j != '~')
 		{
-			if(i < underChars)
+			if(k < underChars)
 			{
 				wattron(window,A_UNDERLINE);
 				wprintw(window,"%c",j);
@@ -146,6 +147,7 @@ void underPrint(WINDOW *window, char buffer[], int underChars)
 			{
 				wprintw(window,"%c",j);
 			}
+			k++;
 		}
 		i++;
 	}
@@ -167,12 +169,12 @@ void highPrint(WINDOW *window, char buffer[], int highChars)
 			if(i < highChars)
 			{
 				wattron(window,A_STANDOUT);
-				wprintw(window,"%c",i);
+				wprintw(window,"%c",j);
 				wattroff(window,A_STANDOUT);
 			}
 			else
 			{
-				wprintw(window,"%c",i);
+				wprintw(window,"%c",j);
 			}
 		}
 		i++;
@@ -182,6 +184,7 @@ void highPrint(WINDOW *window, char buffer[], int highChars)
 int nextWordLength()
 {
 	int i=0;
+	int k=0;
 	char j;
 	while(1)
 	{
@@ -192,10 +195,46 @@ int nextWordLength()
 		}
 		else if(j == ' ')
 		{
-			return i;
+			return k;
+		}
+		else if(j == '\0')
+		{
+			return k;
+		}
+		else
+		{
+			k++;
 		}
 		i++;
 	}
 	return 0;
 }
 
+int youAreWrong(char test[], char key[], int limit)
+{
+	int i = 0;
+	int j = 0;
+	while(1)
+	{
+		if(key[i] == '~')
+		{
+			i++;
+			continue;
+		}
+		else if(key[i] == test[j])
+		{
+			i++;
+			j++;
+			continue;
+		}
+		else if(key[i] == ' ' && (test[j] == ' ' || test[j] == '\0'))
+		{
+			return 0;
+		}
+		else
+		{
+			return 1;
+		}
+	}
+	return 1;
+}

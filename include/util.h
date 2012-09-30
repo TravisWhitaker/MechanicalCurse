@@ -23,5 +23,6 @@ void buffClear(char buffer[], int buffsize);
 void underPrint(WINDOW *window, char buffer[], int underLines);
 void highPrint(WINDOW *window, char buffer[], int highLines);
 int nextWordLength();
+int youAreWrong(char test[], char key[], int limit);
 
 #endif
