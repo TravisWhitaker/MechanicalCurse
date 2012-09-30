@@ -27,7 +27,7 @@ void makeABabby()
 {
 	text_win_row = (row/2)-2;
 	text_win_col = (col-3);
-	user_win_row = 4;
+	user_win_row = 1;
 	user_win_col = (col-3);
 
 	text_win_border = newwin(text_win_row+2,text_win_col+2,1,1);
@@ -156,6 +156,7 @@ void underPrint(WINDOW *window, char buffer[], int underChars)
 void highPrint(WINDOW *window, char buffer[], int highChars)
 {
 	int i = 0;
+	int k = 0;
 	char j;
 	while(1)
 	{
@@ -166,7 +167,7 @@ void highPrint(WINDOW *window, char buffer[], int highChars)
 		}
 		else if(j != '~')
 		{
-			if(i < highChars)
+			if(k < highChars)
 			{
 				wattron(window,A_STANDOUT);
 				wprintw(window,"%c",j);
@@ -176,6 +177,7 @@ void highPrint(WINDOW *window, char buffer[], int highChars)
 			{
 				wprintw(window,"%c",j);
 			}
+			k++;
 		}
 		i++;
 	}
